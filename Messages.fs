@@ -17,3 +17,5 @@ type WriterMessage =
     | Error of ErrorMessage
     | Display of string
 
+type ValidationMessage =
+    | CheckValid of string

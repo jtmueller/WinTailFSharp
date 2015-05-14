@@ -1,6 +1,5 @@
 ﻿module WinTail.Program
 
-open System
 open Akka.FSharp
 
 // initialize MyActorSystem
@@ -14,6 +13,7 @@ let main argv =
     // time to make your first actors!
     let consoleWriterActor = spawn myActorSystem "console-writer" ConsoleWriterActor.start
     let consoleReaderActor = spawn myActorSystem "console-reader" ConsoleReaderActor.start
+    let validationActor = spawn myActorSystem "validator" ValidationActor.start
 
     // tell console reader to begin
     consoleReaderActor <! System(Start)
