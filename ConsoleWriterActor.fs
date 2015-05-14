@@ -7,24 +7,25 @@ open Akka.FSharp
 /// (write one message at a time, champ :)
 module ConsoleWriterActor =
     
-    let start (mailbox:Actor<string>) =
+    let start (mailbox:Actor<WriterMessage>) =
         let rec loop () =
             actor {
                 let! msg = mailbox.Receive()
 
-                // make sure we got a message
-                if String.IsNullOrEmpty(msg) then
-                    Console.ForegroundColor <- ConsoleColor.DarkYellow
-                    Console.WriteLine("Please provide an input.\n")
-                    Console.ResetColor()
-                else
-                    // if message has even # characters, display in red; else, green
-                    let even = msg.Length % 2 = 0
-                    let color = if even then ConsoleColor.Red else ConsoleColor.Green
-                    let alert = sprintf "Your string had an %s # of characters.\n" (if even then "even" else "odd")
-                    Console.ForegroundColor <- color
-                    Console.WriteLine(alert)
-                    Console.ResetColor()
+                match msg with
+                | Success message ->
+                    Console.ForegroundColor <- ConsoleColor.Green
+                    Console.WriteLine(message)
+                | Error(NullInputError reason) ->
+                    Console.ForegroundColor <- ConsoleColor.Magenta
+                    Console.WriteLine(reason)
+                | Error(ValidationError reason) ->
+                    Console.ForegroundColor <- ConsoleColor.Red
+                    Console.WriteLine(reason)
+                | Display message ->
+                    Console.WriteLine(message)
+
+                Console.ResetColor()
 
                 return! loop()
             }
