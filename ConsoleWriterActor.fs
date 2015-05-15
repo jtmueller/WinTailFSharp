@@ -22,6 +22,9 @@ module ConsoleWriterActor =
                 | Error(ValidationError reason) ->
                     Console.ForegroundColor <- ConsoleColor.Red
                     Console.WriteLine(reason)
+                | Error(FileReadError reason) ->
+                    Console.ForegroundColor <- ConsoleColor.Magenta
+                    Console.WriteLine(reason)
                 | Display message ->
                     Console.WriteLine(message)
 

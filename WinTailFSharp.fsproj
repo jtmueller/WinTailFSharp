@@ -57,7 +57,10 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Messages.fs" />
     <Compile Include="ConsoleWriterActor.fs" />
-    <Compile Include="ValidationActor.fs" />
+    <Compile Include="FileObserver.fs" />
+    <Compile Include="TailActor.fs" />
+    <Compile Include="TailCoordinatorActor.fs" />
+    <Compile Include="FileValidatorActor.fs" />
     <Compile Include="ConsoleReaderActor.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />

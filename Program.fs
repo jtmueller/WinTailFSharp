@@ -10,10 +10,11 @@ let myActorSystem =
 [<EntryPoint>]
 let main argv = 
     
-    // time to make your first actors!
+    // create the actors
     let consoleWriterActor = spawn myActorSystem "console-writer" ConsoleWriterActor.start
     let consoleReaderActor = spawn myActorSystem "console-reader" ConsoleReaderActor.start
-    let validationActor = spawn myActorSystem "validator" ValidationActor.start
+    let tailCoordinatorActor = spawn myActorSystem "tail-coord" TailCoordinatorActor.start
+    let validationActor = spawn myActorSystem "file-validator" FileValidatorActor.start
 
     // tell console reader to begin
     consoleReaderActor <! System(Start)
